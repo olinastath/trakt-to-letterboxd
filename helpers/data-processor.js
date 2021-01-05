@@ -3,8 +3,7 @@
  */
 
 const trakt = require('./trakt-api'); // import API wrapper in helpers folder
-const CsvBuilder = require('csv-builder');
-const fs = require('fs');
+const CsvWriter = require('csv-writer').createObjectCsvWriter;
 
 /**
  * Movie object constructor/schema with required Letterboxd properties 
@@ -26,20 +25,19 @@ function Movie(imdbID, tmdbID, title, year, watchedDate, rating, rewatch = false
     this.rewatch = rewatch;
 }
 
+
 const options = {
     // headers for the output CSV file, refer to: https://letterboxd.com/about/importing-data/
-    headers: ['imdbID', 'tmdbID', 'Title', 'Year', 'WatchedDate', 'Rating10', 'Rewatch'],
-    // aliases to map Movie properties to headers
-    alias: {
-        'Title': 'title',
-        'Year': 'year',
-        'WatchedDate': 'watchedDate',
-        'Rating10': 'rating',
-        'Rewatch': 'rewatch'
-      }
+    header: [
+      {id: 'imdbID', title: 'imdbID'},
+      {id: 'tmdbID', title: 'tmdbID'},
+      {id: 'title', title: 'Title'},
+      {id: 'year', title: 'Year'},
+      {id: 'age', title: 'WatchedDate'},
+      {id: 'rating10', title: 'Rating10'},
+      {id: 'rewatch', title: 'Rewatch'},
+    ]
 };
-// CsvBuilder instance we'll use to write and export data
-const builder = new CsvBuilder(options);
 
 /**
  * Method that gathers a user's movie data from Trakt API and compiles it in completeMovieList array.
@@ -105,11 +103,9 @@ function fetchData(userId, startDate, endDate) {
 function generateCsvFile(userId, startDate = null, endDate = null) {
     return new Promise((resolve) => {
         fetchData(userId, startDate, endDate).then((movieList) => {
-            console.log(movieList.length);
-
-            let stream = fs.createWriteStream('output.csv');
-            builder.createReadStream(movieList).pipe(stream);
-            resolve();
+            options.path = `movie_history_${userId}.csv`;
+            const writer = CsvWriter(options);
+            writer.writeRecords(movieList).then(resolve);
         });
     });
 }

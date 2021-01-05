@@ -9,12 +9,24 @@
 
 <div id="popup">
   <form action="/download" method="GET">
-    <label for="username"><b>Trakt Username:</b></label>
-    <input type="text" placeholder="Enter Trakt username" name="username" required>
+    <div class="form-field" id="username-container">
+      <label for="username">Trakt username:</label>
+      <input type="text" placeholder="Enter Trakt username" name="username" required>
+    </div>
 
-    <button type="submit" class="btn">Download data</button>
-    <button class="btn" id="close-btn" formnovalidate>Close</button>
+    <div class="form-field" id="date-container">
+      Select date range (optional):
+      
+      <label for="startDate">Start date:</label>
+      <input type="date" id="startDate" name="startDate">
+
+      <label for="endDate">End date:</label>
+      <input type="date" id="endDate" name="endDate">
+    </div>
+
+    <button type="submit" class="btn" id="download-btn">Download data</button>
   </form>
+  <i class="fa fa-times" id="close-btn"></i>
 </div>
 
 <p class="small">* If you have already logged some movies, there may be duplicate entries.</p>
