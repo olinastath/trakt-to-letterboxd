@@ -33,7 +33,7 @@ const options = {
       {id: 'tmdbID', title: 'tmdbID'},
       {id: 'title', title: 'Title'},
       {id: 'year', title: 'Year'},
-      {id: 'age', title: 'WatchedDate'},
+      {id: 'watchedDate', title: 'WatchedDate'},
       {id: 'rating10', title: 'Rating10'},
       {id: 'rewatch', title: 'Rewatch'},
     ]
@@ -44,6 +44,7 @@ const options = {
  * @param {string} userId user whose movie data we are fetching
  * @param {string} startDate beginning date for range in ISO format (yyyy-MM-dd)
  * @param {string} endDate ending date for range in ISO format (yyyy-MM-dd)
+ * @returns {Promise} returns promise that passes complete movie data into resolve() method
  */
 function fetchData(userId, startDate, endDate) {
     const completeMovieList = [];   // array to store complete list of movies (includes rewatches)
@@ -88,7 +89,7 @@ function fetchData(userId, startDate, endDate) {
                     }
                 }
 
-                Promise.all(historyPromises).then(() => resolve(completeMovieList));
+                Promise.all(historyPromises).then(() => resolve(completeMovieList)).catch(err => console.log(err));
             });
         });
     });
@@ -99,14 +100,16 @@ function fetchData(userId, startDate, endDate) {
  * @param {string} userId user for whom to generate CSV file with movie data
  * @param {string} startDate (optional) beginning date for range in ISO format (yyyy-MM-dd)
  * @param {string} endDate (optional) ending date for range in ISO format (yyyy-MM-dd)
+ * @returns {Promise} returns promise that passes generated file name into resolve() method
  */
 function generateCsvFile(userId, startDate = null, endDate = null) {
     return new Promise((resolve) => {
         fetchData(userId, startDate, endDate).then((movieList) => {
-            options.path = `movie_history_${userId}.csv`;
+            const fileName = `./output/movie_history_${userId}`;
+            options.path = `${fileName}.csv`;
             const writer = CsvWriter(options);
-            writer.writeRecords(movieList).then(resolve);
-        });
+            writer.writeRecords(movieList).then(() => resolve(options.path)).catch(err => console.log(err));
+        }).catch(err => console.log(err));
     });
 }
 

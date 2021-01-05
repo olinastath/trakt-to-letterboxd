@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
  * Generates and sends CSV file with user's movie data for download.
  */
 app.get('/download', async (req, res) => {
-  let fileName = `movie_history_${req.query.username}.csv`;
   processor.generateCsvFile(req.query.username, req.query.startDate, req.query.endDate)
-    .then(() => res.download(path.join(__dirname, fileName), fileName));
+    .then((filename) => res.download(path.join(__dirname, filename), filename))
+    .catch(err => console.log(err));
 });
 
 /**
