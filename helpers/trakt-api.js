@@ -26,7 +26,7 @@ const instance = axios.create({
  * @param {string} userId user for which to fetch watched movies
  * @param {function} callback function to call on fetch success
  */
-let getWatchedMovies = function(userId, callback) {
+function getWatchedMovies(userId, callback) {
     instance.get(`/users/${userId}/watched/movies`).then(res => callback(res.data)).catch(err => console.error(err));
 }
 
@@ -35,7 +35,7 @@ let getWatchedMovies = function(userId, callback) {
  * @param {string} userId user for which to fetch ratings
  * @param {function} callback function to call on fetch success
  */
-let getRatings = function(userId, callback) {
+function getRatings(userId, callback) {
     instance.get(`/users/${userId}/ratings/movies`).then(res => callback(res.data)).catch(err => console.error(err));
 }
 
@@ -49,7 +49,7 @@ let getRatings = function(userId, callback) {
  * @param {string} endDate (optional) ending date for range in ISO format (yyyy-MM-dd)
  * @param {function} callback function to call on fetch success
  */
-let getHistory = function(userId, movieId, startDate, endDate, callback) {
+function getHistory(userId, movieId, startDate, endDate, callback) {
     let url = `/users/${userId}/history/movies/${movieId}`;
     // construct URL based on whether we want to add startDate and endDate params
     if (startDate || endDate) url += '?'
