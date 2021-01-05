@@ -1,7 +1,7 @@
 {
   "name": "trakt-to-letterboxd",
   "version": "1.0.0",
-  "description": "A web app to export movie data from your Trakt account as .csv so it can be imported into your Letterboxd account.",
+  "description": "A web app to export movie data from your Trakt account as CSV so it can be imported into your Letterboxd account.",
   "main": "app.js",
   "author": "Olina Stathopoulou",
   "license": "MIT",

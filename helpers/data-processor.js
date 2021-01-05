@@ -1,5 +1,5 @@
 /**
- * This helper does the heavy lifting of getting all the data from Trakt and generating the output .csv file.
+ * This helper does the heavy lifting of getting all the data from Trakt and generating the output CSV file.
  */
 
 const trakt = require('./trakt-api'); // import API wrapper in helpers folder
@@ -71,8 +71,8 @@ let populateData = function(userId, startDate, endDate) {
 }
 
 /**
- * Method to generate and return .csv file containing user's movie data.
- * @param {string} userId user for whom to generate .csv file with movie data
+ * Method to generate and return CSV file containing user's movie data.
+ * @param {string} userId user for whom to generate CSV file with movie data
  * @param {string} startDate (optional) beginning date for range in ISO format (yyyy-MM-dd)
  * @param {string} endDate (optional) ending date for range in ISO format (yyyy-MM-dd)
  */

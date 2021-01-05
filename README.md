@@ -4,7 +4,7 @@ This web application was created to help import users' movie data from their [Tr
 ## Purpose
 This application is only useful if you have Trakt and Letterboxd accounts and need data to be migrated from Trakt to Letterboxd. 
 
-Letterboxd currently only supports importing data from a .csv file so this app functions as a user interface for generating that .csv file from your Trakt account. Once the Letterboxd API becomes publicly available I will update the app to support Lettrboxd integration.
+Letterboxd currently only supports importing data from a CSV file so this app functions as a user interface for generating that CSV file from your Trakt account. Once the Letterboxd API becomes publicly available I will update the app to support Lettrboxd integration.
 
 If a user has already logged some movies, there may be duplicate entries. Once you import the bulk of your data from Trakt onto Letterboxd, you should then keep your Letterboxd data up-to-date and avoid using the importer again. Additionally, you can specify a date range when exporting data from Trakt to try and avoid overwriting data when importing to Letterboxd.
 
@@ -32,6 +32,11 @@ In order to run the app, open the main directory, and run the start script:
     npm start
 
 The app is now running on http://localhost:3000.
+
+## References
+* [Importing your data · Letterboxd](https://letterboxd.com/about/importing-data/)
+* [Trakt API · Apiary](https://trakt.docs.apiary.io/#)
+
 
 ## Addendum
 Follow me on [Trakt](https://trakt.tv/users/stiefels) and [Letterboxd](https://letterboxd.com/olina/) ☺️

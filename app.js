@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 /**
- * Generates and sends .csv file with user's movie data for download.
+ * Generates and sends CSV file with user's movie data for download.
  */
 app.get("/download", (req, res) => {
   let file = processor.generateCsvFile(req.query.username);
