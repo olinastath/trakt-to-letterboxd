@@ -105,7 +105,8 @@ function fetchData(userId, startDate, endDate) {
 function generateCsvFile(userId, startDate = null, endDate = null) {
     return new Promise((resolve) => {
         fetchData(userId, startDate, endDate).then((movieList) => {
-            const fileName = `./output/movie_history_${userId}`;
+            const timestamp = new Date().getTime();
+            const fileName = `./output/movie_history_${userId}_${timestamp}`;
             options.path = `${fileName}.csv`;
             const writer = CsvWriter(options);
             writer.writeRecords(movieList).then(() => resolve(options.path)).catch(err => console.log(err));
