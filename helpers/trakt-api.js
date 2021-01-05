@@ -27,18 +27,28 @@ const instance = axios.create({
  * Method to GET a user's watched movies.
  * @param {string} userId user for which to fetch watched movies
  * @param {function} callback function to call on fetch success
+ * @param {function} errorHandler function to call if fetch throws error
  */
-function getWatchedMovies(userId, callback) {
-    instance.get(`/users/${userId}/watched/movies`).then(res => callback(res.data)).catch(err => console.error(err));
+function getWatchedMovies(userId, callback, errorHandler) {
+    instance.get(`/users/${userId}/watched/movies`).then(res => callback(res.data)).catch(err => {
+        console.error(`ERROR getting watched movies for user id ${userId}: ` +
+        `${err.response.status} ${err.response.statusText}`);
+        errorHandler(err);
+    });
 }
 
 /**
  * Method to GET a user's ratings.
  * @param {string} userId user for which to fetch ratings
  * @param {function} callback function to call on fetch success
+ * @param {function} errorHandler function to call if fetch throws error
  */
-function getRatings(userId, callback) {
-    instance.get(`/users/${userId}/ratings/movies`).then(res => callback(res.data)).catch(err => console.error(err));
+function getRatings(userId, callback, errorHandler) {
+    instance.get(`/users/${userId}/ratings/movies`).then(res => callback(res.data)).catch(err => {
+        console.log(`ERROR getting rating for user id ${userId}: ` +
+        `${err.response.status} ${err.response.statusText}`);
+        errorHandler(err);
+    });
 }
 
 /**
@@ -50,8 +60,9 @@ function getRatings(userId, callback) {
  * @param {string} startDate (optional) beginning date for range in ISO format (yyyy-MM-dd)
  * @param {string} endDate (optional) ending date for range in ISO format (yyyy-MM-dd)
  * @param {function} callback function to call on fetch success
+ * @param {function} errorHandler function to call if fetch throws error
  */
-function getHistory(userId, movieId, startDate, endDate, callback) {
+function getHistory(userId, movieId, startDate, endDate, callback, errorHandler) {
     let url = `/users/${userId}/history/movies/${movieId}`;
     // construct URL based on whether we want to add startDate and endDate params
     if (startDate || endDate) url += '?'
@@ -59,7 +70,11 @@ function getHistory(userId, movieId, startDate, endDate, callback) {
     if (startDate && endDate) url += '&'
     if (endDate) url += `end_at={${endDate}}`
 
-    instance.get(url).then(res => callback(res.data)).catch(err => console.error(err));
+    instance.get(url).then(res => callback(res.data)).catch(err => {
+        console.log(`ERROR getting history for user id ${userId},  movie id ${movieId}: ` + 
+        `${err.response.status} ${err.response.statusText}`);
+        errorHandler(err);
+    });
 }
 
 module.exports = {

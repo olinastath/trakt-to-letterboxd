@@ -51,7 +51,7 @@ function fetchData(userId, startDate, endDate) {
     const traktIdToMovieMap = {};   // map to store unique movies using their Trakt ID as key
     const multiplePlays = [];       // array to store Trakt IDs of movies with multiple plays (rewatches)
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         trakt.getWatchedMovies(userId, (watched) => {
             watched.forEach(entry => {
                 let movie = new Movie(entry.movie.ids.imdb, entry.movie.ids.tmdb, entry.movie.title, entry.movie.year, 
@@ -82,7 +82,7 @@ function fetchData(userId, startDate, endDate) {
                                 });
 
                                 resolve();
-                            });
+                            }, reject);
                         }));
                     } else {
                         completeMovieList.push(traktIdToMovieMap[movieId]);
@@ -90,8 +90,8 @@ function fetchData(userId, startDate, endDate) {
                 }
 
                 Promise.all(historyPromises).then(() => resolve(completeMovieList)).catch(err => console.log(err));
-            });
-        });
+            }, reject);
+        }, reject);
     });
 }
 
@@ -103,14 +103,14 @@ function fetchData(userId, startDate, endDate) {
  * @returns {Promise} returns promise that passes generated file name into resolve() method
  */
 function generateCsvFile(userId, startDate = null, endDate = null) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         fetchData(userId, startDate, endDate).then((movieList) => {
             const timestamp = new Date().getTime();
             const fileName = `./output/movie_history_${userId}_${timestamp}`;
             options.path = `${fileName}.csv`;
             const writer = CsvWriter(options);
-            writer.writeRecords(movieList).then(() => resolve(options.path)).catch(err => console.log(err));
-        }).catch(err => console.log(err));
+            writer.writeRecords(movieList).then(() => resolve(options.path)).catch(reject);
+        }).catch(reject);
     });
 }
 
