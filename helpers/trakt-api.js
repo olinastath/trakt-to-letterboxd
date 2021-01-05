@@ -3,11 +3,13 @@
  */
 
 const axios = require('axios');
+const fs = require('fs');
 
 /**
- * Trakt API config values (ID, secret, redirect URI).
+ * Trakt API config values (ID, secret, redirect URI). 
+ * For dev env, get local config.js file. For prod, get from env variables.
  */
-const config = require('../config');
+const config = fs.existsSync('./config.js') ? require('../config') : process.env;
 
 /**
  * Set up Axios instance with required headers and Trakt API base path.
