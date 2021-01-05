@@ -6,7 +6,8 @@
   "author": "Olina Stathopoulou",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "eslint --ignore-path .gitignore ."
   },
   "repository": {
     "type": "git",
@@ -14,7 +15,11 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "csv-builder": "^1.0.1",
     "express": "~4.16.1",
     "hbs": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0"
   }
 }
