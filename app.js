@@ -13,23 +13,21 @@ app.set('view engine', 'hbs');
  * Landing page, render index.hbs view.
  */
 app.get("/", (req, res) => {
-    res.render("index");
+    res.render('index');
 });
 
 /**
  * Generates and sends CSV file with user's movie data for download.
  */
-app.get("/download", (req, res) => {
-  let file = processor.generateCsvFile(req.query.username);
-  // res.sendFile(file, { root : __dirname});
-  res.redirect("/");
+app.get('/download', async (req, res) => {
+  processor.generateCsvFile(req.query.username).then(() => res.sendFile('output.csv', { root : __dirname}));
 });
 
 /**
  * All unregistered paths should redirect to main page.
  */
-app.get("*", function (req, res) {
-	res.redirect("/");
+app.get('*', function (req, res) {
+	res.redirect('/');
 });
 
 app.listen(process.env.PORT || 3000);
