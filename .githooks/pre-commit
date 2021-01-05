@@ -1,2 +1,2 @@
-set -e
-npm run lint
+#!/usr/bin/env bash
+./node_modules/.bin/eslint ./
