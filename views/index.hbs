@@ -1,0 +1,21 @@
+<h3>Ready to make the switch?</h3>
+<p>This web application will help you export your movie data from your <b>Trakt.tv</b> account so it can be imported into your <b>Letterboxd</b> account.</p>
+<p>You’ll be able to preview the results before confirming the import on Letterboxd.</p>
+
+<ol>
+  <li><a id="download">Download your movie data from Trakt as .csv file</a></li>
+  <li><a href="https://letterboxd.com/import/" target="_blank">Import your .csv file into Letterboxd</a></li>
+</ol>
+
+<div id="popup">
+  <form action="/download" method="GET">
+    <label for="username"><b>Trakt Username:</b></label>
+    <input type="text" placeholder="Enter Trakt username" name="username" required>
+
+    <button type="submit" class="btn">Download data</button>
+    <button class="btn" id="close-btn" formnovalidate>Close</button>
+  </form>
+</div>
+
+<p class="small">* If you have already logged some movies, there may be duplicate entries.</p>
+<p class="small">Follow me on <a href="https://letterboxd.com/Olina/" target="_blank">Letterboxd</a> and <a href="https://trakt.tv/users/stiefels" target="_blank">Trakt</a> while you're here.</p>
