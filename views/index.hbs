@@ -31,3 +31,41 @@
 
 <p class="small">* If you have already logged some movies, there may be duplicate entries.</p>
 <p class="small">Follow me on <a href="https://letterboxd.com/Olina/" target="_blank">Letterboxd</a> and <a href="https://trakt.tv/users/stiefels" target="_blank">Trakt</a> while you're here.</p>
+
+<script>
+  function errorAlert(statusCode) {
+    let alertTitle = `${statusCode}: `
+    let alertText;
+    let contactText = 'Please try again later or contact us to resolve it.';
+    switch(statusCode) {
+        case '400': 
+            alertTitle += 'Bad Request';
+            alertText = 'Request could not be parsed. ' + contactText; 
+            break;
+        case '401': 
+            alertTitle += 'Unauthorized.'
+            break;
+        case '403': 
+            alertTitle += 'Forbidden.';
+            break;
+        case '404':
+            alertTitle += 'Not Found.';
+            alertText = 'Please check username and try again.';
+            break;
+        case '500':
+            alertTitle += 'Server error.';
+            break;
+        case '503': case '504': case '520': case '521': case '522':
+            alertTitle += 'Service unavailble.';
+            break;
+        default:
+            break;
+    }
+
+    if (!alertText) alertText = contactText;
+    
+    if (statusCode) swal(alertTitle, alertText);
+  }
+
+  errorAlert('{{error}}');
+</script>

@@ -25,9 +25,11 @@ function Movie(imdbID, tmdbID, title, year, watchedDate, rating, rewatch = false
     this.rewatch = rewatch;
 }
 
-
+/**
+ * Options for creating CsvWriter instance, contains headers for the output CSV file.
+ * Refer to https://letterboxd.com/about/importing-data/ for import options.
+ */
 const options = {
-    // headers for the output CSV file, refer to: https://letterboxd.com/about/importing-data/
     header: [
       {id: 'imdbID', title: 'imdbID'},
       {id: 'tmdbID', title: 'tmdbID'},
@@ -96,7 +98,7 @@ function fetchData(userId, startDate, endDate) {
 }
 
 /**
- * Method to generate and return CSV file containing user's movie data.
+ * Method to generate and return CSV file containing user's movie data by fetching it from the API.
  * @param {string} userId user for whom to generate CSV file with movie data
  * @param {string} startDate (optional) beginning date for range in ISO format (yyyy-MM-dd)
  * @param {string} endDate (optional) ending date for range in ISO format (yyyy-MM-dd)
@@ -114,6 +116,24 @@ function generateCsvFile(userId, startDate = null, endDate = null) {
     });
 }
 
+/**
+ * Method to generate and return CSV file from movie data passed into it.
+ * @param {string} userId user for whom to generate CSV file with movie data
+ * @param {array} data the user's movie data, already fetched and passed in
+ * @returns {Promise} returns promise that passes generated file name into resolve() method
+ */
+function generateCsvFileFromData(userId, data) {
+    const timestamp = new Date().getTime();
+    const fileName = `./output/movie_history_${userId}_${timestamp}`;
+    options.path = `${fileName}.csv`;
+    const writer = CsvWriter(options);
+    return new Promise((resolve, reject) => {
+        writer.writeRecords(data).then(() => resolve(options.path)).catch(reject);
+    });
+}
+
 module.exports = {
-    generateCsvFile: generateCsvFile
+    generateCsvFile: generateCsvFile,
+    generateCsvFileFromData: generateCsvFileFromData,
+    fetchData: fetchData
 }
