@@ -11,9 +11,9 @@ window.onload = function() {
         toggleDisplay(popup);
     });
 
-    document.getElementById('download-btn').addEventListener('click', function() {
+    form.onsubmit = function() {
         toggleDisplay(popup);
-    });
+    };
 
     document.getElementById('date-selector').addEventListener('click', function() {
         toggleDisplay(document.getElementById('date-container'), 'flex');

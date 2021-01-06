@@ -28,8 +28,6 @@ app.get('/', (req, res) => {
  * API endpoint that returns movie data in JSON form
  */
 app.get('/fetch-data', (req, res) => {
-  console.log('fetching data');
-  console.log(req.query);
   processor.fetchData(req.query.username, req.query.startDate, req.query.endDate)
   .then(data => res.json(data))
   .catch(err => res.json({error: {status: err.response.status, statusText: err.response.statusText}}));
