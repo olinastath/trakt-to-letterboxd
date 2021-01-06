@@ -19,6 +19,7 @@ app.use(session({secret: config.CLIENT_SECRET, saveUninitialized: false, resave:
 app.get('/', (req, res) => {
   if (req.session.error) {
     res.render('index', {error: req.session.error.status});
+    req.session.error = null;
   } else {
     res.render('index');
   }

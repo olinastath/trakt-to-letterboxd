@@ -69,7 +69,7 @@
 
     if (!alertText) alertText = contactText;
     
-    if (statusCode) swal(alertTitle, alertText);
+    if (statusCode) swal(alertTitle, alertText, {closeOnClickOutside: true, closeOnEsc: true});
   }
 
   errorAlert('{{error}}');
