@@ -18,10 +18,16 @@
       <label id="date-selector">Select a date range (optional)</label>
       
       <div id="date-container" class="flex-column">
-        <label for="startDate">Start date:</label>
+        <span class="wrapper" id="startDate-wrapper">
+          <label for="startDate">Start date:</label>
+          <label class="small" >Clear</label>
+        </span>
         <input type="date" id="startDate" name="startDate">
 
-        <label for="endDate">End date:</label>
+        <span class="wrapper" id="endDate-wrapper">
+          <label for="endDate">End date:</label>
+          <label class="small" >Clear</label>
+        </span>
         <input type="date" id="endDate" name="endDate">
       </div>
     </div>

@@ -90,14 +90,19 @@ label {
   margin-bottom: 30px;
 }
 
-#date-selector {
+#date-selector, #date-container span.wrapper label.small {
   cursor: pointer;
-  padding-bottom: 5px;
 }
 
 #date-container {
   display: none;
   margin-top: 10px;
+}
+
+#date-container span.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
 }
 
 .flex-column {
