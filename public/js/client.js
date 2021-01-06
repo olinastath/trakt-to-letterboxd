@@ -14,8 +14,12 @@ window.onload = function() {
     document.getElementById('download-btn').addEventListener('click', function() {
         toggleDisplay(popup);
     });
+
+    document.getElementById('date-selector').addEventListener('click', function() {
+        toggleDisplay(document.getElementById('date-container'), 'flex');
+    });
 }
 
-function toggleDisplay(element) {
-    element.style.display = element.style.display !== 'block' ? 'block' : 'none';
+function toggleDisplay(element, display = 'block') {
+    element.style.display = element.style.display !== display ? display : 'none';
 }

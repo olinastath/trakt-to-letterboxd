@@ -49,8 +49,6 @@ li {
 }
 
 #popup form {
-  display: flex;
-  flex-direction: column;
   padding: 50px;
   font-weight: 400;
 }
@@ -89,9 +87,22 @@ label {
 }
 
 .form-field {
+  margin-bottom: 30px;
+}
+
+#date-selector {
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+#date-container {
+  display: none;
+  margin-top: 10px;
+}
+
+.flex-column {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
 }
 
 #close-btn {

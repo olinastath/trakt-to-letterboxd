@@ -8,20 +8,22 @@
 </ol>
 
 <div id="popup">
-  <form action="/download" method="GET">
-    <div class="form-field" id="username-container">
+  <form action="/download" method="GET" class="flex-column">
+    <div class="form-field flex-column">
       <label for="username">Trakt username:</label>
       <input type="text" placeholder="Enter Trakt username" name="username" required>
     </div>
 
-    <div class="form-field" id="date-container">
-      Select date range (optional):
+    <div class="form-field">
+      <label id="date-selector">Select a date range (optional)</label>
       
-      <label for="startDate">Start date:</label>
-      <input type="date" id="startDate" name="startDate">
+      <div id="date-container" class="flex-column">
+        <label for="startDate">Start date:</label>
+        <input type="date" id="startDate" name="startDate">
 
-      <label for="endDate">End date:</label>
-      <input type="date" id="endDate" name="endDate">
+        <label for="endDate">End date:</label>
+        <input type="date" id="endDate" name="endDate">
+      </div>
     </div>
 
     <button type="submit" class="btn" id="download-btn">Download data</button>
