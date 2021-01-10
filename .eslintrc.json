@@ -1,27 +1,27 @@
 {
     "extends": "eslint:recommended",
     "rules": {
-        "quotes": ["warn", "single"],
+        "quotes": ["error", "single"],
         "max-len": [2, 140, 8],
-        "eol-last": ["warn", "always"],
-        "prefer-const": ["warn", {
+        "eol-last": ["error", "always"],
+        "prefer-const": ["error", {
             "destructuring": "any",
             "ignoreReadBeforeAssign": false
         }],
-        "no-multi-spaces": "warn",
-        "no-multi-str": "warn",
-        "no-unused-vars": "warn",
-        "no-use-before-define": "warn",
+        "no-multi-spaces": "error",
+        "no-multi-str": "error",
+        "no-unused-vars": "error",
+        "no-use-before-define": "error",
         "indent": ["error", "tab", { "MemberExpression": 1 }],
-		"camelcase": "warn",
-		"comma-dangle": ["warn", "never"],
-		"comma-spacing": "warn",
-		"comma-style": ["warn", "last"],
-		"implicit-arrow-linebreak": ["warn", "beside"],
-		"lines-between-class-members": ["warn", "always"],
-		"no-var": "warn",
-        "no-multiple-empty-lines": ["warn", { "max": 2}],
-        "semi": ["warn", "always", { "omitLastInOneLineBlock": true}]
+		"camelcase": "error",
+		"comma-dangle": ["error", "never"],
+		"comma-spacing": "error",
+		"comma-style": ["error", "last"],
+		"implicit-arrow-linebreak": ["error", "beside"],
+		"lines-between-class-members": ["error", "always"],
+		"no-var": "error",
+        "no-multiple-empty-lines": ["error", { "max": 2}],
+        "semi": ["error", "always", { "omitLastInOneLineBlock": true}]
     },
     "parserOptions": {
         "ecmaVersion": 2017
