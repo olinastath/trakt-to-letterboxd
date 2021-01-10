@@ -116,7 +116,7 @@ function generateCsvFile(userId, startDate = null, endDate = null) {
 	return new Promise((resolve, reject) => {
 		fetchData(userId, startDate, endDate).then((movieList) => {
 			const timestamp = new Date().getTime();
-			const fileName = `movie_history_${userId}_${timestamp}`
+			const fileName = `movie_history_${userId}_${timestamp}`;
 			const fileNamePath = `./output/${fileName}`;
 			const limit = 1900; // Letterboxd importer supports files containing up to 1,900 films.
 
@@ -188,4 +188,4 @@ module.exports = {
 	generateCsvFileFromData: generateCsvFileFromData,
 	fetchData: fetchData,
 	generateZipFile: generateZipFile
-}
+};

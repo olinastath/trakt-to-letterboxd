@@ -63,10 +63,10 @@ function getRatings(userId, callback, errorHandler) {
 function getHistory(userId, movieId, startDate, endDate, callback, errorHandler) {
 	let url = `/users/${userId}/history/movies/${movieId}`;
 	// construct URL based on whether we want to add startDate and endDate params
-	if (startDate || endDate) url += '?'
-	if (startDate) url += `start_at={${startDate}}`
-	if (startDate && endDate) url += '&'
-	if (endDate) url += `end_at={${endDate}}`
+	if (startDate || endDate) url += '?';
+	if (startDate) url += `start_at={${startDate}}`;
+	if (startDate && endDate) url += '&';
+	if (endDate) url += `end_at={${endDate}}`;
 
 	instance.get(url).then(res => callback(res.data)).catch(err => {
 		console.log(`ERROR getting history for user id ${userId}, movie id ${movieId}: ` + 
@@ -79,4 +79,4 @@ module.exports = {
 	getWatchedMovies: getWatchedMovies,
 	getRatings: getRatings,
 	getHistory: getHistory
-}
+};
