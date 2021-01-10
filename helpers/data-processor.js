@@ -117,14 +117,15 @@ function generateCsvFile(userId, startDate = null, endDate = null) {
 		fetchData(userId, startDate, endDate).then((movieList) => {
 			const timestamp = new Date().getTime();
 			const fileName = `movie_history_${userId}_${timestamp}`
-			const fileNamePath = `./output/${fileName}}`;
+			const fileNamePath = `./output/${fileName}`;
+			const limit = 1900; // Letterboxd importer supports files containing up to 1,900 films.
             
-			if (movieList.length > 1900) {
+			if (movieList.length > limit) {
 				let j = 1;
 				const writePromises = [];
                 
-				for (let i = 0; i < movieList.length; i+= 1900) {
-					const slicedList = movieList.slice(i, i + 1900);
+				for (let i = 0; i < movieList.length; i+= limit) {
+					const slicedList = movieList.slice(i, i + limit);
 					options.path = `${fileNamePath}_${j}.csv`;
 					const writer = CsvWriter(options);
 					writePromises.push(writer.writeRecords(slicedList));
@@ -163,6 +164,7 @@ function generateCsvFileFromData(userId, data) {
 
 function generateZipFile(strippedFileName) {
 	const zipFileName = `${strippedFileName}.zip`;
+	const userId = strippedFileName.replace('movie_history_', '').split('_')[0];
 	const zipFilePath = path.join(PATHS.OUTPUT, zipFileName);
 	const output = fs.createWriteStream(zipFilePath);
 	const archive = archiver('zip', { zlib: { level: 9 }});
@@ -174,7 +176,7 @@ function generateZipFile(strippedFileName) {
 		archive.glob(`${strippedFileName}_*.csv`, { cwd: PATHS.OUTPUT })
 			.finalize().then( () => {
 				output.on('close', function() {
-					console.log(`zipped ${archive.pointer()} total bytes.`);
+					console.log(`Zipped ${archive.pointer()} total bytes for user ${userId}, file: ${zipFileName}.`);
 					resolve(zipFilePath);
 				});
 			});
