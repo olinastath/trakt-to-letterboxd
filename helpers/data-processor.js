@@ -3,14 +3,11 @@
  */
 
 const trakt = require('./trakt-api'); // import API wrapper in helpers folder
+const { PATHS } = require('./constants');
 const path = require('path');
 const fs = require('fs');
 const archiver = require('archiver');
 const CsvWriter = require('csv-writer').createObjectCsvWriter;
-
-const PATHS = {
-    OUTPUT: path.join(__dirname, '../output')
-}
 
 /**
  * Movie object constructor/schema with required Letterboxd properties 
@@ -116,7 +113,7 @@ function generateCsvFile(userId, startDate = null, endDate = null) {
         fetchData(userId, startDate, endDate).then((movieList) => {
             const timestamp = new Date().getTime();
             const fileName = `movie_history_${userId}_${timestamp}`
-            const fileNamePath = `./output/movie_history_${userId}_${timestamp}`;
+            const fileNamePath = `./output/${fileName}}`;
             
             if (movieList.length > 1900) {
                 let j = 1;
