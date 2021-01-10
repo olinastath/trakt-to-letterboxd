@@ -3,7 +3,14 @@
  */
 
 const trakt = require('./trakt-api'); // import API wrapper in helpers folder
+const path = require('path');
+const fs = require('fs');
+const archiver = require('archiver');
 const CsvWriter = require('csv-writer').createObjectCsvWriter;
+
+const PATHS = {
+    OUTPUT: path.join(__dirname, '../output')
+}
 
 /**
  * Movie object constructor/schema with required Letterboxd properties 
@@ -108,10 +115,29 @@ function generateCsvFile(userId, startDate = null, endDate = null) {
     return new Promise((resolve, reject) => {
         fetchData(userId, startDate, endDate).then((movieList) => {
             const timestamp = new Date().getTime();
-            const fileName = `./output/movie_history_${userId}_${timestamp}`;
-            options.path = `${fileName}.csv`;
-            const writer = CsvWriter(options);
-            writer.writeRecords(movieList).then(() => resolve(options.path)).catch(reject);
+            const fileName = `movie_history_${userId}_${timestamp}`
+            const fileNamePath = `./output/movie_history_${userId}_${timestamp}`;
+            
+            if (movieList.length > 1900) {
+                let j = 1;
+                let writePromises = [];
+                
+                for (let i = 0; i < movieList.length; i+= 1900) {
+                    let slicedList = movieList.slice(i, i + 1900);
+                    options.path = `${fileNamePath}_${j}.csv`;
+                    const writer = CsvWriter(options);
+                    writePromises.push(writer.writeRecords(slicedList));
+                    j++;
+                }
+
+                Promise.all(writePromises).then(() => {
+                    resolve({filename: fileName, zip: true});
+                }).catch(reject);
+            } else {
+                options.path = `${fileNamePath}.csv`;
+                const writer = CsvWriter(options);
+                writer.writeRecords(movieList).then(() => resolve({filename: options.path, zip: false})).catch(reject);
+            }
         }).catch(reject);
     });
 }
@@ -132,8 +158,29 @@ function generateCsvFileFromData(userId, data) {
     });
 }
 
+function generateZipFile(strippedFileName) {
+    const zipFileName = `${strippedFileName}.zip`;
+    const zipFilePath = path.join(PATHS.OUTPUT, zipFileName);
+    const output = fs.createWriteStream(zipFilePath);
+    const archive = archiver('zip', { zlib: { level: 9 }});
+
+    return new Promise((resolve, reject) => {
+        archive.pipe(output);
+
+        archive.on('error', err => reject(err));
+        archive.glob(`${strippedFileName}_*.csv`, { cwd: PATHS.OUTPUT })
+            .finalize().then( () => {
+                output.on('close', function() {
+                    console.log(`zipped ${archive.pointer()} total bytes.`);
+                    resolve(zipFilePath);
+                });
+            });
+    });
+}
+
 module.exports = {
     generateCsvFile: generateCsvFile,
     generateCsvFileFromData: generateCsvFileFromData,
-    fetchData: fetchData
+    fetchData: fetchData,
+    generateZipFile: generateZipFile
 }
