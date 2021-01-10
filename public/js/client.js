@@ -53,4 +53,4 @@ window.onload = function() {
 	document.querySelector('#endDate-wrapper label.small').addEventListener('click', function() {
 		document.getElementById('endDate').value = '';
 	});
-}
+};
