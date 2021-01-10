@@ -22,7 +22,7 @@ const instance = axios.create({
 		'trakt-api-key': config.CLIENT_ID
 	}
 });
-  
+
 /**
  * Method to GET a user's watched movies.
  * @param {string} userId user for which to fetch watched movies
@@ -31,8 +31,7 @@ const instance = axios.create({
  */
 function getWatchedMovies(userId, callback, errorHandler) {
 	instance.get(`/users/${userId}/watched/movies`).then(res => callback(res.data)).catch(err => {
-		console.error(`ERROR getting watched movies for user id ${userId}: ` +
-        `${err.response.status} ${err.response.statusText}`);
+		console.error(`ERROR getting watched movies for user id ${userId}: ${err.response.status} ${err.response.statusText}`);
 		errorHandler(err);
 	});
 }
@@ -45,8 +44,7 @@ function getWatchedMovies(userId, callback, errorHandler) {
  */
 function getRatings(userId, callback, errorHandler) {
 	instance.get(`/users/${userId}/ratings/movies`).then(res => callback(res.data)).catch(err => {
-		console.log(`ERROR getting rating for user id ${userId}: ` +
-        `${err.response.status} ${err.response.statusText}`);
+		console.log(`ERROR getting rating for user id ${userId}: ${err.response.status} ${err.response.statusText}`);
 		errorHandler(err);
 	});
 }
@@ -71,8 +69,8 @@ function getHistory(userId, movieId, startDate, endDate, callback, errorHandler)
 	if (endDate) url += `end_at={${endDate}}`
 
 	instance.get(url).then(res => callback(res.data)).catch(err => {
-		console.log(`ERROR getting history for user id ${userId},  movie id ${movieId}: ` + 
-        `${err.response.status} ${err.response.statusText}`);
+		console.log(`ERROR getting history for user id ${userId}, movie id ${movieId}: ` + 
+			`${err.response.status} ${err.response.statusText}`);
 		errorHandler(err);
 	});
 }

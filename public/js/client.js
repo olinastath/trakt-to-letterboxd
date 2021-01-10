@@ -12,44 +12,44 @@ window.onload = function() {
 	const form = popup.querySelector('form');
 
 	/**
-     * Event listener to open/close download modal.
-     */
+	 * Event listener to open/close download modal.
+	 */
 	document.getElementById('download').addEventListener('click', function() {
 		form.reset();
 		toggleDisplay(popup);
 	});
 
 	/**
-     * Event listener to close download modal on close button click.
-     */
+	 * Event listener to close download modal on close button click.
+	 */
 	document.getElementById('close-btn').addEventListener('click', function() {
 		toggleDisplay(popup);
 	});
 
 	/**
-     * Event listener to close download modal on submit.
-     */
+	 * Event listener to close download modal on submit.
+	 */
 	form.onsubmit = function() {
 		toggleDisplay(popup);
 	};
 
 	/**
-     * Event listener to expand date selector input fields.
-     */
+	 * Event listener to expand date selector input fields.
+	 */
 	document.getElementById('date-selector').addEventListener('click', function() {
 		toggleDisplay(document.getElementById('date-container'), 'flex');
 	});
 
 	/**
-     * Event listener for clear start date button.
-     */
+	 * Event listener for clear start date button.
+	 */
 	document.querySelector('#startDate-wrapper label.small').addEventListener('click', function() {
 		document.getElementById('startDate').value = '';
 	});
 
 	/**
-     * Event listener for clear start date button.
-     */
+	 * Event listener for clear start date button.
+	 */
 	document.querySelector('#endDate-wrapper label.small').addEventListener('click', function() {
 		document.getElementById('endDate').value = '';
 	});

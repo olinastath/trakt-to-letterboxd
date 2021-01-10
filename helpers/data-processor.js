@@ -79,7 +79,7 @@ function fetchData(userId, startDate, endDate) {
 				for (const movieId in traktIdToMovieMap) {
 					if (multiplePlays.includes(movieId)) {
 						const movie = traktIdToMovieMap[movieId];
-                        
+
 						historyPromises.push(new Promise((resolve) => {
 							trakt.getHistory(userId, movieId, startDate, endDate, (history) => {
 								history.forEach((entry, i) => {
@@ -119,11 +119,11 @@ function generateCsvFile(userId, startDate = null, endDate = null) {
 			const fileName = `movie_history_${userId}_${timestamp}`
 			const fileNamePath = `./output/${fileName}`;
 			const limit = 1900; // Letterboxd importer supports files containing up to 1,900 films.
-            
+
 			if (movieList.length > limit) {
 				let j = 1;
 				const writePromises = [];
-                
+				
 				for (let i = 0; i < movieList.length; i+= limit) {
 					const slicedList = movieList.slice(i, i + limit);
 					options.path = `${fileNamePath}_${j}.csv`;
