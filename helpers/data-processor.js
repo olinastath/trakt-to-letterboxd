@@ -41,7 +41,7 @@ const options = {
 		{id: 'year', title: 'Year'},
 		{id: 'watchedDate', title: 'WatchedDate'},
 		{id: 'rating10', title: 'Rating10'},
-		{id: 'rewatch', title: 'Rewatch'},
+		{id: 'rewatch', title: 'Rewatch'}
 	]
 };
 

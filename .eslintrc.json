@@ -3,7 +3,7 @@
     "rules": {
         "quotes": ["warn", "single"],
         "max-len": [2, 140, 8],
-        "eol-last": ["error", "always"],
+        "eol-last": ["warn", "always"],
         "prefer-const": ["warn", {
             "destructuring": "any",
             "ignoreReadBeforeAssign": false
@@ -12,8 +12,15 @@
         "no-multi-str": "warn",
         "no-unused-vars": "warn",
         "no-use-before-define": "warn",
-        "indent": ["error", "tab"],
-        "camelcase": "warn"
+        "indent": ["error", "tab", { "MemberExpression": 1 }],
+		"camelcase": "warn",
+		"comma-dangle": ["warn", "never"],
+		"comma-spacing": "warn",
+		"comma-style": ["warn", "last"],
+		"implicit-arrow-linebreak": ["warn", "beside"],
+		"lines-between-class-members": ["warn", "always"],
+		"no-var": "warn",
+		"no-multiple-empty-lines": ["warn", { "max": 2}]
     },
     "parserOptions": {
         "ecmaVersion": 2017

@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const processor = require('./helpers/data-processor');
-var session = require('express-session');
+const session = require('express-session');
 const config = fs.existsSync('./config.js') ? require('./config') : process.env;
 
 const app = express();
