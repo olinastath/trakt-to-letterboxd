@@ -20,7 +20,8 @@
 		"implicit-arrow-linebreak": ["warn", "beside"],
 		"lines-between-class-members": ["warn", "always"],
 		"no-var": "warn",
-		"no-multiple-empty-lines": ["warn", { "max": 2}]
+        "no-multiple-empty-lines": ["warn", { "max": 2}],
+        "semi": ["warn", "always", { "omitLastInOneLineBlock": true}]
     },
     "parserOptions": {
         "ecmaVersion": 2017
