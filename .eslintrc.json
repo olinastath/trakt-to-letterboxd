@@ -2,7 +2,8 @@
     "extends": "eslint:recommended",
     "rules": {
         "quotes": ["warn", "single"],
-        "max-len": [2, 120, 8]
+        "max-len": [2, 120, 8],
+        "eol-last": ["warn", "always"]
     },
     "parserOptions": {
         "ecmaVersion": 2017
