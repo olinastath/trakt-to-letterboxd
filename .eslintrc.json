@@ -2,8 +2,18 @@
     "extends": "eslint:recommended",
     "rules": {
         "quotes": ["warn", "single"],
-        "max-len": [2, 120, 8],
-        "eol-last": ["warn", "always"]
+        "max-len": [2, 140, 8],
+        "eol-last": ["error", "always"],
+        "prefer-const": ["warn", {
+            "destructuring": "any",
+            "ignoreReadBeforeAssign": false
+        }],
+        "no-multi-spaces": "warn",
+        "no-multi-str": "warn",
+        "no-unused-vars": "warn",
+        "no-use-before-define": "warn",
+        "indent": ["error", "tab"],
+        "camelcase": "warn"
     },
     "parserOptions": {
         "ecmaVersion": 2017

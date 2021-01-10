@@ -15,12 +15,12 @@ const config = fs.existsSync('./config.js') ? require('../config') : process.env
  * Set up Axios instance with required headers and Trakt API base path.
  */
 const instance = axios.create({
-    baseURL: 'https://api.trakt.tv',
-    headers: {
-        'Content-Type': 'application/json',
-        'trakt-api-version': '2',
-        'trakt-api-key': config.CLIENT_ID
-    }
+	baseURL: 'https://api.trakt.tv',
+	headers: {
+		'Content-Type': 'application/json',
+		'trakt-api-version': '2',
+		'trakt-api-key': config.CLIENT_ID
+	}
 });
   
 /**
@@ -30,11 +30,11 @@ const instance = axios.create({
  * @param {function} errorHandler function to call if fetch throws error
  */
 function getWatchedMovies(userId, callback, errorHandler) {
-    instance.get(`/users/${userId}/watched/movies`).then(res => callback(res.data)).catch(err => {
-        console.error(`ERROR getting watched movies for user id ${userId}: ` +
+	instance.get(`/users/${userId}/watched/movies`).then(res => callback(res.data)).catch(err => {
+		console.error(`ERROR getting watched movies for user id ${userId}: ` +
         `${err.response.status} ${err.response.statusText}`);
-        errorHandler(err);
-    });
+		errorHandler(err);
+	});
 }
 
 /**
@@ -44,11 +44,11 @@ function getWatchedMovies(userId, callback, errorHandler) {
  * @param {function} errorHandler function to call if fetch throws error
  */
 function getRatings(userId, callback, errorHandler) {
-    instance.get(`/users/${userId}/ratings/movies`).then(res => callback(res.data)).catch(err => {
-        console.log(`ERROR getting rating for user id ${userId}: ` +
+	instance.get(`/users/${userId}/ratings/movies`).then(res => callback(res.data)).catch(err => {
+		console.log(`ERROR getting rating for user id ${userId}: ` +
         `${err.response.status} ${err.response.statusText}`);
-        errorHandler(err);
-    });
+		errorHandler(err);
+	});
 }
 
 /**
@@ -63,22 +63,22 @@ function getRatings(userId, callback, errorHandler) {
  * @param {function} errorHandler function to call if fetch throws error
  */
 function getHistory(userId, movieId, startDate, endDate, callback, errorHandler) {
-    let url = `/users/${userId}/history/movies/${movieId}`;
-    // construct URL based on whether we want to add startDate and endDate params
-    if (startDate || endDate) url += '?'
-    if (startDate) url += `start_at={${startDate}}`
-    if (startDate && endDate) url += '&'
-    if (endDate) url += `end_at={${endDate}}`
+	let url = `/users/${userId}/history/movies/${movieId}`;
+	// construct URL based on whether we want to add startDate and endDate params
+	if (startDate || endDate) url += '?'
+	if (startDate) url += `start_at={${startDate}}`
+	if (startDate && endDate) url += '&'
+	if (endDate) url += `end_at={${endDate}}`
 
-    instance.get(url).then(res => callback(res.data)).catch(err => {
-        console.log(`ERROR getting history for user id ${userId},  movie id ${movieId}: ` + 
+	instance.get(url).then(res => callback(res.data)).catch(err => {
+		console.log(`ERROR getting history for user id ${userId},  movie id ${movieId}: ` + 
         `${err.response.status} ${err.response.statusText}`);
-        errorHandler(err);
-    });
+		errorHandler(err);
+	});
 }
 
 module.exports = {
-    getWatchedMovies: getWatchedMovies,
-    getRatings: getRatings,
-    getHistory: getHistory
+	getWatchedMovies: getWatchedMovies,
+	getRatings: getRatings,
+	getHistory: getHistory
 }
